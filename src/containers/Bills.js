@@ -40,7 +40,7 @@ export default class {
               try {
                 return {
                   ...doc,
-                  date: formatDate(doc.date),
+                  formatedDate: formatDate(doc.date),
                   status: formatStatus(doc.status)
                 }
               } catch (e) {
@@ -58,5 +58,7 @@ export default class {
           return bills
         })
     }
+
   }
+
 }

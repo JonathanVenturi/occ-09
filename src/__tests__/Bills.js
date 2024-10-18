@@ -48,10 +48,10 @@ describe("Given that I am connected as an employee", () => {
 
       const fetchedBills = await billsInstance.getBills()
       expect(fetchedBills).toHaveLength(4)
-      expect(fetchedBills[0].date).toBe("4 Avr. 04")
-      expect(fetchedBills[1].date).toBe("1 Jan. 01")
+      expect(fetchedBills[0].formatedDate).toBe("4 Avr. 04")
+      expect(fetchedBills[1].formatedDate).toBe("1 Jan. 01")
       expect(screen.getByText('encore')).toBeTruthy()
-      expect(screen.getAllByText('Refus', { exact: false })).toHaveLength(2)
+      expect(screen.getAllByText('Refused')).toHaveLength(2)
       
     })
 
