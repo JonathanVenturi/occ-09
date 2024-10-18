@@ -6,34 +6,32 @@ import { fireEvent, screen, waitFor } from "@testing-library/dom"
 import userEvent from '@testing-library/user-event'
 import { localStorageMock } from '../__mocks__/localStorage.js'
 import mockStore from '../__mocks__/store.js'
-// import NewBillUI from "../views/NewBillUI.js"
+import NewBillUI from "../views/NewBillUI.js"
 import NewBill from "../containers/NewBill.js"
-// import { bills } from "../fixtures/bills.js"
+import { bills } from "../fixtures/bills.js"
 import { ROUTES, ROUTES_PATH } from "../constants/routes.js"
-
 import router from "../app/Router.js";
 
 jest.mock("../app/store", () => mockStore)
 
-describe("Given I am connected as an employee", () => {
+describe("Given that I am connected as an employee", () => {
 
+  // Mock localStorage and log as employee before each test
   beforeEach(() => {
-
+    jest.spyOn(mockStore, 'bills')
     Object.defineProperty(window, 'localStorage', { value: localStorageMock })
     window.localStorage.setItem('user', JSON.stringify({ type: 'Employee' }))
-
   })
 
-  describe("When I am on NewBill Page", () => {
+  describe("When I am on the NewBill Page", () => {
 
     beforeEach(() => {
-
+      // Initialize router and navigate to the NewBill page before each test
       const root = document.createElement("div")
       root.setAttribute("id", "root")
       document.body.append(root)
       router()
       window.onNavigate(ROUTES_PATH.NewBill)
-
     })
 
     test("Then the mail icon in vertical layout should be highlighted", async () => {
@@ -80,6 +78,7 @@ describe("Given I am connected as an employee", () => {
     })
 
     describe('When I submit a valid form', () => {
+
       test('Then a new bill should be created', async () => {
 
         const newBillInstance = new NewBill({ document, onNavigate, store: mockStore, localStorage: window.localStorage })
